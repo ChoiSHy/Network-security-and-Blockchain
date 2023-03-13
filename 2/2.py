@@ -2,21 +2,46 @@ import os
 import random
 import time
 import struct
+import math
 
-# 128바이트(= 1024비트)의 무작위 바이트 문자열을 생성
-rand_bytes = os.urandom(128)
+def euclid(a, b):
+    if b == 0:
+        return a, 1, 0
+    else:
+        gcd, i, j = euclid(b, a % b)
+        x = j
+        y = i - (a//b) * j
+        return gcd, x, y
 
-# 현재 시간의 밀리초 값을 반환
-now_ms = int(time.time() * 1000)
-
-# 64비트의 무작위 부동 소수점 수를 생성
-rand_float = random.random()
-
-# 무작위 바이트 문자열과 시간, 무작위 부동 소수점 수를 합쳐서 256비트의 무작위 키 생성
-key_bytes = rand_bytes + struct.pack('>d', now_ms) + struct.pack('>d', rand_float)
-key = int.from_bytes(key_bytes, byteorder='big')
-
-# 256비트의 무작위 키를 16진수 형태의 문자열로 출력
-print("{:064x}".format(key))
+def mod_inverse(a, b):
+    gcd, x, y = euclid(a, b)
+    if gcd == 1:
+        return x % b
+    else:
+        return 0
 
 
+def make_key(p):
+    key_bytes = struct.pack('>d', random.random()) + struct.pack('>d', time.time()*1000) + os.urandom(16)
+    private_key = int.from_bytes(key_bytes)
+    while private_key >= p:
+        private_key = int.from_bytes( struct.pack('>d', random.random()) + struct.pack('>d', time.time()*1000) + os.urandom(16))
+    return private_key
+
+def ellipticCurve_points(p):
+    x = 0
+    while x < p :
+        w = (x**3+7) % p
+
+        if int(w**0.5)== w**0.5:
+            return (x,w**(0.5))
+        x+=1
+
+
+
+
+p = int(0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFC2F)
+key= make_key(p)
+
+print(ellipticCurve_points(p))        
+ 
