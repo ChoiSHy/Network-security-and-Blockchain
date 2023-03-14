@@ -17,14 +17,14 @@ current_time = time.time()
 # Concatenate the random integer, random float, and current time
 rand_str = f"{rand_int}{rand_float}{current_time}"
 
-# Convert the string to bytes and hash it using SHA-256
-import hashlib
-rand_hash = hashlib.sha256(rand_str.encode()).digest()
+# Convert the string to bytes and XOR it with a random key
+key = os.urandom(32)
+rand_bytes = rand_str.encode()
+xored_bytes = bytes(b1 ^ b2 for b1, b2 in zip(rand_bytes, key))
 
-# Convert the hash to an integer and truncate to 256 bits
-rand_int = int.from_bytes(rand_hash, byteorder='big')
+# Convert the XORed bytes to an integer and truncate to 256 bits
+rand_int = int.from_bytes(xored_bytes, byteorder='big')
 rand_int &= (1 << 256) - 1
 
 # The result is a 256-bit random integer
-print(hex(rand_int))
-print(len(str(hex(rand_int))))
+print(rand_int)
