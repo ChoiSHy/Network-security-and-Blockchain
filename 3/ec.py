@@ -17,7 +17,7 @@ def generate_private_key():
             break
     return private_key
 
-# 확장 유클리드드
+
 def exEuclidian(n, b):
     r1 = n
     r2 = b
@@ -68,4 +68,3 @@ def generate_public_key(key):
     print('y: ', hex(public_key[1]))
 
     return public_key
-
