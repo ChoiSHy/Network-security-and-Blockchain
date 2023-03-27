@@ -35,7 +35,7 @@ def exEuclidian(n, b):
         t1 = t2
         t2 = t
 
-    return t1%n
+    return t1 if t1>0 else t1 + n
 
 def add(p1:list, p2:list):
     if p1 == p2:
@@ -63,8 +63,5 @@ def generate_public_key(key):
     
     G = [x,y]
     public_key= double_and_add(key, G)
-
-    print('x: ', hex(public_key[0]))
-    print('y: ', hex(public_key[1]))
 
     return public_key
