@@ -1,7 +1,7 @@
-import hashlib
 import ec
-import base58check
+import hashlib
 from Crypto.Hash import RIPEMD160
+import base58check
 
 def generate_bitcoin_address(public_key):
     #take public key
@@ -9,8 +9,9 @@ def generate_bitcoin_address(public_key):
         public_key='02'+hex(public_key[0])[2:]
     else:
         public_key='03'+hex(public_key[0])[2:]
-
     # perform SHA-256 hashing on the public key
+    if len(hex(int(public_key,16))) <67:
+        return None
     sha256_hash = hashlib.sha256(bytes.fromhex(public_key)).hexdigest()
 
     # perform RIPEMD-160 hashing on the result of SHA-256
@@ -39,10 +40,24 @@ def generate_bitcoin_address(public_key):
     
     return ripemd_code, address, checksum
 
-private_key = int(input('개인키 입력? '),16)
-public_key = ec.generate_public_key(private_key)
+wanted = input('희망하는 주소의 문자열? ')
 
-ripemd_code, address, checksum = generate_bitcoin_address(public_key)
+while(True):
+    private_key= ec.generate_private_key()
+    public_key=ec.generate_public_key(private_key)
 
-print('공개키 hash =', ripemd_code)
-print('비트코인 주소 =', address.decode())
+    result = generate_bitcoin_address(public_key)
+    if result is None:
+        continue
+    if result[1].decode()[1:len(wanted)+1] == wanted:
+        print('개인 키 =', private_key)
+        print('주소 =',result[1].decode())
+        break
+        
+    
+
+
+
+
+
+
