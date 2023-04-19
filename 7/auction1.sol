@@ -1,4 +1,4 @@
-pragma solidity ^0.6.0;
+pragma solidity ^0.8.0;
 
 contract Auction{
     bool isOpen;
@@ -13,7 +13,7 @@ contract Auction{
     address payable max_bidder;
 
     constructor(uint[] memory datas)public {
-        require(datas[1] > block.timestamp, "제한 기간 오류");
+        require(datas[1] > block.timestamp, "limit time error");
         isOpen=true;
         finishable=false;
 
@@ -25,20 +25,20 @@ contract Auction{
     }
 
     function bid() public payable{
-        require(isOpen,"경매종료");
-        require(now <= limit_time, "경매 기간 지남");
-        require(msg.value > max_price, "가격 미달");
-        require(msg.value <=hope_price,"희망 가격 초과");
+        require(isOpen,"Auction closed");
+        require(block.timestamp <= limit_time, "time out");
+        require(msg.value > max_price, "bid more price");
+        require(msg.value <=hope_price,"it's too much");
 
         max_bidder.transfer(max_price);
         max_price=msg.value;
-        max_bidder = msg.sender;
+        max_bidder = payable(msg.sender);
         emit max_price_renewal(max_price, max_bidder);  
     } 
     function finish() public payable{
-        require(owner == msg.sender, "owner 아님");
-        require(isOpen,"경매 종료");
-        require(now >= limit_time || max_price==hope_price,"종료 조건 미달");
+        require(owner == msg.sender, "not owner");
+        require(isOpen,"it's closed");
+        require(block.timestamp >= limit_time || max_price==hope_price,"unsatisfied to terminate");
 
         emit finish_auction(max_price, max_bidder);
         isOpen=false;

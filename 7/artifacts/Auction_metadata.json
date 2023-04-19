@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.6.9+commit.3e3065ac"
+		"version": "0.8.18+commit.87f61d96"
 	},
 	"language": "Solidity",
 	"output": {
@@ -70,17 +70,21 @@
 			}
 		],
 		"devdoc": {
-			"methods": {}
+			"kind": "dev",
+			"methods": {},
+			"version": 1
 		},
 		"userdoc": {
-			"methods": {}
+			"kind": "user",
+			"methods": {},
+			"version": 1
 		}
 	},
 	"settings": {
 		"compilationTarget": {
 			"7/auction1.sol": "Auction"
 		},
-		"evmVersion": "istanbul",
+		"evmVersion": "paris",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -93,10 +97,10 @@
 	},
 	"sources": {
 		"7/auction1.sol": {
-			"keccak256": "0x5ca744c76469b44df57191e65b916b8f3b5d1891a03071de315e7120853c120b",
+			"keccak256": "0x4b48170800c5781f146f3d62bd16181d29a427f1c22852f91649eb820614c28d",
 			"urls": [
-				"bzz-raw://00d9f96b6db508d6409a102c4d091513a03d032136444eec14d3862e094ff29c",
-				"dweb:/ipfs/QmYZhRf2sS8tGPSkh2mYhneXKR4VUjR5tdUU7a1fDt7xyW"
+				"bzz-raw://d11289666d15cad9883fc1e93add49c17e434a115f06989e3c4155b43416ff8b",
+				"dweb:/ipfs/QmdnQQAgm29p1DiMG4VbbRg44hn4aiMerasLJAWZmQUKsv"
 			]
 		}
 	},
