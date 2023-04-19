@@ -67,6 +67,13 @@
 				"outputs": [],
 				"stateMutability": "payable",
 				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "withdraw",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -97,10 +104,10 @@
 	},
 	"sources": {
 		"7/auction2.sol": {
-			"keccak256": "0xeb9d970d44f0746aed5134daac0c1f4a99dc6ccd2c9f1c00d95b5a59785f37f2",
+			"keccak256": "0x9d45d6f774f98ffded6c43ae9aa29aeee136a40e62c8efe562cacdc4e4a07db0",
 			"urls": [
-				"bzz-raw://83cb52ef7818adbe2b25e3f30da5eb9622244a987bcb677e2624cc30880b7c05",
-				"dweb:/ipfs/QmaJNHHELx7MKVpoK3qrkwHucXjigufCeTua31qkYMC5XT"
+				"bzz-raw://a96f4555fd5d44ebaae786fce51d358bed551a5c815e453fd99a599212d67263",
+				"dweb:/ipfs/QmWpQBMnXe3gZFTP2oAxXoShbuEWVM2rxfe2Yg5ZyA6bYU"
 			]
 		}
 	},

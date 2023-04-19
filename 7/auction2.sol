@@ -12,6 +12,8 @@ contract Auction2{
     uint max_price;
     address payable max_bidder;
 
+    mapping(address => uint) ret_map;
+
     constructor(uint[] memory datas)public {
         require(datas[1] > block.timestamp, "limit time error");
         isOpen=true;
@@ -30,11 +32,21 @@ contract Auction2{
         require(msg.value > max_price, "bid more price");
         require(msg.value <=hope_price,"it's too much");
 
-        max_bidder.transfer(max_price);
+        ret_map[max_bidder] += max_price;
+
         max_price=msg.value;
         max_bidder = payable(msg.sender);
+
         emit max_price_renewal(max_price, max_bidder);  
     } 
+    function withdraw()public payable{
+        require(ret_map[msg.sender] != 0, "there's no balace to withdraw");
+
+        address payable to = payable(msg.sender);
+        uint ret_price = ret_map[msg.sender];
+        ret_map[msg.sender]=0;
+        to.transfer(ret_price);
+    }
     function finish() public payable{
         require(owner == msg.sender, "not owner");
         require(isOpen,"it's closed");
